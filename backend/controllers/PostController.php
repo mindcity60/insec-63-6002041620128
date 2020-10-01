@@ -56,7 +56,7 @@ class PostController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
-        }
+        } else echo"<center><p> ไม่สามารถดำเนินการได้ #128517;</p><center>";
     }
 
     /**
@@ -71,7 +71,7 @@ class PostController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-        }
+        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
@@ -91,7 +91,7 @@ class PostController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-        }
+        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
@@ -113,7 +113,7 @@ class PostController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-        }
+        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
@@ -129,7 +129,7 @@ class PostController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-        }
+        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
