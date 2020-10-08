@@ -8,7 +8,8 @@ use backend\models\PostSerach;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+use common\components\AccessControl;
+
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -21,7 +22,7 @@ class PostController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
+          /*  'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
@@ -30,7 +31,11 @@ class PostController extends Controller
                         'roles' => ['@'],
                     ],
                 ],
-            ],
+            ],*/
+                'access' => [
+                   // 'class' => 'common\components\AccessControl'
+                    'class'=> AccessControl::class //เพราะว่าในaacess Con ทำการอ้างไปที่ path นั้นแล้ว
+        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -46,7 +51,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        if(Yii::$app->user->can('post-list')) {
+        //if(Yii::$app->user->can('post-index')) {
 
         $searchModel = new PostSerach();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -56,7 +61,7 @@ class PostController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
-        } else echo"<center><p> ไม่สามารถดำเนินการได้ #128517;</p><center>";
+       // } else echo"<center><p> ไม่สามารถดำเนินการได้ #128517;</p><center>";
     }
 
     /**
@@ -67,11 +72,11 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
-        if(Yii::$app->user->can('post-view')) {
+      //  if(Yii::$app->user->can('post-view')) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
+        // } //else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
@@ -81,7 +86,7 @@ class PostController extends Controller
      */
     public function actionCreate()
     {
-        if(Yii::$app->user->can('post-create')) {
+      //  if(Yii::$app->user->can('post-create')) {
         $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -91,7 +96,7 @@ class PostController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
+        // } //else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
@@ -103,7 +108,7 @@ class PostController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(Yii::$app->user->can('post-update')) {
+       // if(Yii::$app->user->can('post-update')) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -113,7 +118,7 @@ class PostController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
+        // } //else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
@@ -125,11 +130,11 @@ class PostController extends Controller
      */
     public function actionDelete($id)
     {
-        if(Yii::$app->user->can('post-delete')) {
+      //  if(Yii::$app->user->can('post-delete')) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-        } else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
+        // } //else echo"<center><h2><p> ไม่สามารถดำเนินการได้ &#128517;</p></h2><center>";
     }
 
     /**
